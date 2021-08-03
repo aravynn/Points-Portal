@@ -10,7 +10,7 @@ require_once("PHPMailer/PHPMailer/Exception.php");
 require_once("PHPMailer/PHPMailer/SMTP.php");
 
 // above root, the config for mail.
-require_once("../../miller-config.php");
+require_once("../../config.php");
  
  
 

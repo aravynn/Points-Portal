@@ -343,12 +343,12 @@ use PHPMailer\PHPMailer\Exception;
 		switch($emails){
 			case 'Tech':
 				// emails me, for site issues.
-				$email['kjones@mepbrothers.com'] = 'Kevin Jones';
+				$email['admin@mail.com'] = 'Kevin Jones';
 				break;
 			case 'Admin':
 			case 'Order':
 				// email the miller admin as well as jeff, minimalized for now.
-				$email = array('kjones@mepbrothers.com' => 'Kevin Jones');
+				$email = array('admin@mail.com' => 'Kevin Jones');
 				$sql = new sqlControl();
 				$sql->sqlCommand("SELECT Email, FirstName, LastName FROM Users WHERE UserType = 'Manager'", array(), false);	
 				$returnvars = $sql->returnAllResults();
@@ -362,19 +362,8 @@ use PHPMailer\PHPMailer\Exception;
 		
 		try {
 			
-			/*
-			foreach($email as $k => $a){
-				error_log('Send to: ' . $k . ' ' . $a);
-			}
-
-			ob_start();                    			// start buffer capture
-			var_dump( $email );           			// dump the values
-			$contents = ob_get_contents(); 			// put the buffer into a variable
-			ob_end_clean();                			// end capture
-			error_log("Download Array: " . $contents );      // log contents of the result of var_dump( $object )
-			*/
 			//Recipients
-			$mail->setFrom('info@mepbrothers.com', 'Miller Points');
+			$mail->setFrom('info@mail.com', 'Points');
 			
 			$mails = '';
 			foreach($email as $k => $a){			

@@ -15,7 +15,7 @@ function isSecure() {
  
 if(!isSecure()){
 	// force SSL 
-    header("Location:https://www.mepbrothers.com/miller/index.php");
+    header("Location:https://www.mepbrothers.com/points/index.php");
     exit();
 }
  

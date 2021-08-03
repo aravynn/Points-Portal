@@ -26,11 +26,11 @@ if($_POST['action'] != 'login'){
  		
  		if($res == 0){
  			// redirect back to the correct page. 
- 			header('location:https://www.mepbrothers.com/miller/index.php?p=order');
+ 			header('location:https://www.mepbrothers.com/points/index.php?p=order');
  		} elseif($res == -1) {
- 			header('location:https://www.mepbrothers.com/miller/index.php?r=error');
+ 			header('location:https://www.mepbrothers.com/points/index.php?r=error');
  		} else {
- 			header('location:https://www.mepbrothers.com/miller/index.php?r=error-too-many');
+ 			header('location:https://www.mepbrothers.com/points/index.php?r=error-too-many');
  		}
  		break;
  	case 'AddNewUser': // create new user via admin
@@ -43,19 +43,19 @@ if($_POST['action'] != 'login'){
  		
  		switch($admin->AddUser($_POST['username'], $_POST['password'], BASE_POINTS, $_POST['email'], $_POST['firstname'], $_POST['lastname'])){
  			case 0: 
- 				header('location:https://www.mepbrothers.com/miller/index.php?p=admin&nu=s');
+ 				header('location:https://www.mepbrothers.com/points/index.php?p=admin&nu=s');
  				break;
  			case -1: // -1 bad username
- 				header('location:https://www.mepbrothers.com/miller/index.php?p=admin&nu=u' . $retstr);
+ 				header('location:https://www.mepbrothers.com/points/index.php?p=admin&nu=u' . $retstr);
  				break;
  			case -2: // -2 bad password
- 				header('location:https://www.mepbrothers.com/miller/index.php?p=admin&nu=p' . $retstr);
+ 				header('location:https://www.mepbrothers.com/points/index.php?p=admin&nu=p' . $retstr);
  				break;
  			case -3: // -3 invalid entries
- 				header('location:https://www.mepbrothers.com/miller/index.php?p=admin&nu=i' . $retstr);
+ 				header('location:https://www.mepbrothers.com/points/index.php?p=admin&nu=i' . $retstr);
  				break;
  			case -4: // -4 bad email
- 				header('location:https://www.mepbrothers.com/miller/index.php?p=admin&nu=e' . $retstr);
+ 				header('location:https://www.mepbrothers.com/points/index.php?p=admin&nu=e' . $retstr);
  				break;
  			default: 
  				break;
@@ -67,20 +67,20 @@ if($_POST['action'] != 'login'){
  		$admin = new admin();
  		$admin->DeleteUserByID($_POST['user']);
  		$admin = '';
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=admin&r=deleted');		
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=admin&r=deleted');		
  		break;
  	case 'ResetUserPoints':
  		$user = new user();
  		$user->loadUserByID($_POST['user']);
  		$user->UpdatePoints($_POST['points']);
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=admin&r=points&v=' . filter_var($_POST['points'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) );
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=admin&r=points&v=' . filter_var($_POST['points'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) );
  		break;
  	case 'FreezeUser':
  		$admin = new admin();
  		$freeze = $admin->FreezeUserByID($_POST['user']);
  		$admin = '';
  		// true activate false freeze
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=admin&r=' . ($freeze ? 'activated' : 'frozen'));		
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=admin&r=' . ($freeze ? 'activated' : 'frozen'));		
  		break;
  	case 'AddProduct':
  		$admin = new admin();
@@ -96,14 +96,14 @@ if($_POST['action'] != 'login'){
  			$options[$_POST['option3']] = explode("|", $_POST['option3value']);
  		}
  		$admin->AddItem($_POST['itemname'], $_POST['imagelink'], $_POST['partnumber'], $_POST['pointvalue'], $_POST['retail'], $options);
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=admin');	
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=admin');	
  		break;
  	case 'DeleteProduct':
  		$admin = new admin();
  		
  		$admin->deleteItemByID($_POST['product']);
  		
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=admin');
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=admin');
  		break;
  	case 'EditProduct':
  		$admin = new admin();
@@ -121,7 +121,7 @@ if($_POST['action'] != 'login'){
  		
  		$admin->UpdateItemByID($_POST['product'], $_POST['itemname'], $_POST['imagelink'], $_POST['partnumber'], $_POST['pointvalue'], $_POST['retail'], $options);
  		
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=admin');
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=admin');
  		break;
  	case 'PlaceOrder':
  		if(isset($_POST['orderuser']) && $_POST['orderuser'] != ''){
@@ -136,13 +136,13 @@ if($_POST['action'] != 'login'){
  		
  		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
  			// only error case for this. email is wrong.
- 			header('location:https://www.mepbrothers.com/miller/index.php?p=account&ae=email');
+ 			header('location:https://www.mepbrothers.com/points/index.php?p=account&ae=email');
  			break;
  		}
  		
  		$user->EditUser($_POST['email'], $_POST['firstname'], $_POST['lastname']);
  		
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=account&ae=success');
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=account&ae=success');
  		break;
  	case 'UpdatePassword':
  		$user = new user();
@@ -150,15 +150,15 @@ if($_POST['action'] != 'login'){
  		
  		if(count($user->CheckPasswordStrength($_POST['newpassword'])) > 0){
  			error_log("pass strength");
- 			header('location:https://www.mepbrothers.com/miller/index.php?p=account&r=password-strength');
+ 			header('location:https://www.mepbrothers.com/points/index.php?p=account&r=password-strength');
  			break;
  		}
  			
  		
  		if($user->ResetPassword($_POST['oldpassword'], $_POST['newpassword'])){
- 			header('location:https://www.mepbrothers.com/miller/index.php?p=account');
+ 			header('location:https://www.mepbrothers.com/points/index.php?p=account');
  		} else {
- 			header('location:https://www.mepbrothers.com/miller/index.php?p=account&r=incorrect-password');
+ 			header('location:https://www.mepbrothers.com/points/index.php?p=account&r=incorrect-password');
  		}
  		break;
  	case 'SendHelpEmail':
@@ -185,9 +185,9 @@ if($_POST['action'] != 'login'){
  		$results = $admin->sendEmail($emails, $subject, $message, $user->UserID);
  		
  		if($results){
- 			header('location:https://www.mepbrothers.com/miller/index.php?p=help&r=success');
+ 			header('location:https://www.mepbrothers.com/points/index.php?p=help&r=success');
  		} else {
- 			header('location:https://www.mepbrothers.com/miller/index.php?p=help&r=failure');
+ 			header('location:https://www.mepbrothers.com/points/index.php?p=help&r=failure');
  		}
  		break;
  	default:
@@ -200,7 +200,7 @@ if($_POST['action'] != 'login'){
  	$user = new user();
  	if(!$user->CheckLoggedIn()){
  		// Not logged in. Get OUT!
- 		header('location:https://www.mepbrothers.com/miller/index.php');
+ 		header('location:https://www.mepbrothers.com/points/index.php');
  		die();
  		
  	} 
@@ -220,7 +220,7 @@ if($_POST['action'] != 'login'){
  	}
  	
  	if($user->Status == 'Frozen'){
-		header('location:https://www.mepbrothers.com/miller/index.php?p=order&r=frozen');
+		header('location:https://www.mepbrothers.com/points/index.php?p=order&r=frozen');
  		return false;
  	}
  	
@@ -324,14 +324,14 @@ if($_POST['action'] != 'login'){
 	//error_log("Used: " . $points . ' user: ' . $user->Points);
 	
 	if($numberfail){
-		header('location:https://www.mepbrothers.com/miller/index.php?p=order&r=validation' . $failstring);
+		header('location:https://www.mepbrothers.com/points/index.php?p=order&r=validation' . $failstring);
  		return false;
  	}
 	
 	/* We're disabling the overage for points, as per Jeff/Dan request.
  	if($points > $user->Points && $user->UserType != "Sizing"){
  		// we gotta problem, kick them back cause they ordered too much.
- 		header('location:https://www.mepbrothers.com/miller/index.php?p=order&r=points' . $failstring);
+ 		header('location:https://www.mepbrothers.com/points/index.php?p=order&r=points' . $failstring);
  		return false;
  		
  	}
@@ -348,7 +348,7 @@ if($_POST['action'] != 'login'){
 	
 	$message = 'Order id: ' . filter_var($orderID, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . ' Total Points: ' . filter_var($points, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . ' User ID: ' . filter_var($userID, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . ' ' . filter_var($user->FirstName, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . ' ' . filter_var($user->LastName, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . '<br />' . $messagelines;
 	
-	$admin->sendEmail('Order', 'Miller Points: Order placed by ' . filter_var($user->FirstName, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . ' ' . filter_var($user->LastName, FILTER_SANITIZE_FULL_SPECIAL_CHARS), $message, $userID);
+	$admin->sendEmail('Order', 'points Points: Order placed by ' . filter_var($user->FirstName, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . ' ' . filter_var($user->LastName, FILTER_SANITIZE_FULL_SPECIAL_CHARS), $message, $userID);
 	
 	if($userid > -1){
 		$retuser = '&u=' . $userid;
@@ -357,7 +357,7 @@ if($_POST['action'] != 'login'){
 	}
 	
 	
-	header('location:https://www.mepbrothers.com/miller/index.php?p=orderResult' . $retuser);
+	header('location:https://www.mepbrothers.com/points/index.php?p=orderResult' . $retuser);
 	
  }
  	
